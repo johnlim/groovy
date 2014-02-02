@@ -1,2 +1,7 @@
 target/
-web-app/WEB_INF/
+web-app/WEB-INF/
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
