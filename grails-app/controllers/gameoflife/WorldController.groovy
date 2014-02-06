@@ -27,12 +27,6 @@ class World{
     return numberOfLiveNeighbours; 
   }
   
-//  private tickOfLiveCells(Cell cell){
-//    if((getNumberOfLiveNeighbours(cell) == 2) || (getNumberOfLiveNeighbours(cell) == 3)){
-//      nextGeneration.giveCellLife(cell); 
-//    } 
-//  }
-
   World tick(){
     World nextGeneration = new World();
     def cellIsDead = {cell ->  setOfLiveCells.contains(cell) == false};
@@ -41,16 +35,21 @@ class World{
         nextGeneration.giveCellLife(it); 
       }
     }
-    setOfLiveCells.each{
-//        if((getNumberOfLiveNeighbours(it) == 2) || (getNumberOfLiveNeighbours(it) == 3)){
-//         nextGeneration.giveCellLife(it); 
-//        }
-      tickOfLiveCells(it);
+    def tickOfDeadCells = {
       it.neighbours().each{
         if(cellIsDead(it) && getNumberOfLiveNeighbours(it) == 3){ 
             nextGeneration.giveCellLife(it);
         }
-      }
+      } 
+    }
+    setOfLiveCells.each{
+      tickOfLiveCells(it);
+      tickOfDeadCells(it);
+//      it.neighbours().each{
+//        if(cellIsDead(it) && getNumberOfLiveNeighbours(it) == 3){ 
+//            nextGeneration.giveCellLife(it);
+//        }
+//      }
     }
     return nextGeneration;
    }
